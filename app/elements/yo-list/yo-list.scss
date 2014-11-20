@@ -1,0 +1,44 @@
+/* Shadow DOM CSS Cheat Sheet */
+/* http://robdodson.me/blog/2014/04/10/shadow-dom-css-cheat-sheet */
+
+/* styles for the custom element itself - lowest specificity */
+:host {
+  display: block;
+}
+
+.item {
+  padding: 16px;
+}
+
+.big-icon {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.name {
+  text-overflow: ellipsis;
+}
+
+.delta {
+  padding-right: 24px;
+  color: #00bbd3;
+  font-weight: bold;
+}
+
+.rank, .name, .value, .delta {
+  font-weight: 400;
+  font-size: 1.1em;
+  color: rgba(0, 0, 0, 0.73);
+  padding-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 8px;
+}
+
+xxx {
+  border-style: solid;
+  border-width: 1px;
+  border-color: red;
+}

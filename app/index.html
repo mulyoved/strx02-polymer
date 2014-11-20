@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Polymer WebApp</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+
+  <link rel="import" href="bower_components/core-elements/core-elements.html">
+  <link rel="import" href="bower_components/paper-elements/paper-elements.html">
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/topeka-elements/topeka-leaderboard.html">
+
+  <!-- build:vulcanized elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+
+  <!-- endbuild-->
+</head>
+
+<body fullbleed layout vertical>
+<core-scroll-header-panel flex fixed>
+<core-toolbar class="medium-tall">
+  <paper-icon-button icon="menu"></paper-icon-button>
+  <div flex>Styrax</div>
+  <core-icon icon="info"></core-icon>
+  <!--
+  <paper-icon-button icon="refresh"></paper-icon-button>
+  <paper-icon-button icon="more-vert"></paper-icon-button>
+  -->
+  <div class="bottom fit" horizontal layout>
+    <paper-tabs selected="0">
+      <paper-tab>LEAD</paper-tab>
+      <paper-tab>TOP</paper-tab>
+      <paper-tab>TREND</paper-tab>
+      <paper-tab>DECK</paper-tab>
+      <paper-tab>SEARCH__</paper-tab>
+    </paper-tabs>
+  </div>
+</core-toolbar>
+
+  <core-animated-pages transitions="hero-transition cross-fade">
+    <section><yo-list cross-fade id="0"></yo-list></section>
+    <section><div cross-fade id="1">TOP</div></section>
+    <section><div cross-fade id="2">TREND</div></section>
+    <section><div cross-fade id="3">DECK</div></section>
+    <section><div cross-fadeid="4">SEARCH</div></section>
+  </core-animated-pages>
+
+
+</core-scroll-header-panel>
+
+<script>
+
+  var pages = document.querySelector('core-animated-pages');
+  var tabs = document.querySelector('paper-tabs');
+  tabs.addEventListener('core-select', function() {
+    console.log(pages.selected, tabs.selected);
+    pages.selected = tabs.selected;
+  });
+
+</script>
+
+</body>
+
+</html>
