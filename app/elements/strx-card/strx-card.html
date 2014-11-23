@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="strx-card" attributes="count,cardinfo,z">
+  <template>
+    <link rel="stylesheet" href="strx-card.css">
+    <paper-shadow animated="true" class="box" id="shadow">
+      <div class="card-content" vertical layout>
+        <core-image class="banner"
+                    fade
+                    sizing="contain"
+                    position="top"
+                    src="{{cardinfo.mobile_image}}">
+        </core-image>
+
+        <div horizontal center-justified layout>
+          <core-image class="thumbnails"
+                      fade
+                      src="{{cardinfo.thumbnails}}">
+
+          </core-image>
+        </div>
+        <h2 class="title">{{cardinfo.title}}</h2>
+        <div flex self-stretch vertical end-justified layout class="text-center">
+          <div horizontal around-justified layout class="values">
+            <div vertical layout>
+              <h3 flex>{{cardinfo.price}}</h3>
+              <p class="text-label" flex>PRICE</p>
+            </div>
+
+            <div vertical layout>
+              <h3 flex>{{cardinfo.value}}</h3>
+              <p class="text-label" flex>VALUE</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </paper-shadow>
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        // define element prototype here
+        count: 0,
+        cardinfo: {
+          title: 'Unknown'
+        },
+        z: 0,
+        observe: {
+          z: 'setZ',
+        },
+
+        setZ: function() {
+          //console.log('setZ', this.z);
+          this.$.shadow.setZ(this.z);
+        },
+      });
+
+    })();
+  </script>
+</polymer-element>

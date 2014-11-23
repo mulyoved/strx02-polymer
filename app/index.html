@@ -27,7 +27,7 @@
   <!-- endbuild-->
 </head>
 
-<body fullbleed layout vertical>
+<body unresolved fullbleed layout vertical>
 <core-scroll-header-panel flex fixed>
 <core-toolbar class="medium-tall">
   <paper-icon-button icon="menu"></paper-icon-button>
@@ -39,30 +39,58 @@
   -->
   <div class="bottom fit" horizontal layout>
     <paper-tabs selected="0">
-      <paper-tab>LEAD</paper-tab>
+      <!-- <paper-tab>LEAD</paper-tab> -->
       <paper-tab>TOP</paper-tab>
       <paper-tab>TREND</paper-tab>
       <paper-tab>DECK</paper-tab>
-      <paper-tab>SEARCH__</paper-tab>
+      <paper-tab>SEARCH</paper-tab>
     </paper-tabs>
   </div>
 </core-toolbar>
 
   <core-animated-pages transitions="hero-transition cross-fade">
-    <section><yo-list cross-fade id="0"></yo-list></section>
-    <section><div cross-fade id="1">TOP</div></section>
-    <section><div cross-fade id="2">TREND</div></section>
-    <section><div cross-fade id="3">DECK</div></section>
-    <section><div cross-fadeid="4">SEARCH</div></section>
+    <!-- <section><yo-list cross-fade id="0"></yo-list></section> -->
+    <section><div cross-fade id="1"><strx-card-deck id="deck"></strx-card-deck></div></section>
+    <section><div cross-fade id="2">
+      <left-swipe-action>
+        <div style="height: 120px;">
+          <div>Title</div>
+          <div>Description</div>
+        </div>
+      </left-swipe-action>
+    </div></section>
+    <section><div cross-fade id="3"><drag-test></drag-test>DECK</div></section>
+    <section><div cross-fadeid="4">
+      <strx-card id="card1" z="3" class="card" count="{{channelData.length}}">
+
+      </strx-card>
+    </div></section>
   </core-animated-pages>
 
 
 </core-scroll-header-panel>
 
+<script src="data/channels.js"></script>
 <script>
+
+  var len = channelData.length;
+  for (var i=0; i<len; i++) {
+    var channel = channelData[i];
+    channel.value = Math.round(Math.random() * 10000) + 50;
+    channel.price = Math.round(channel.value / (Math.random() * 1000) + 1);
+    //console.log(channel.value, channel.price);
+  }
 
   var pages = document.querySelector('core-animated-pages');
   var tabs = document.querySelector('paper-tabs');
+  var card1 = document.querySelector('#card1');
+  var deck = document.querySelector('#deck');
+  card1.count = 7;
+  card1.cardinfo = channelData[0];
+
+  deck.cards = channelData;
+  deck.topCardIndex = 7;
+
   tabs.addEventListener('core-select', function() {
     console.log(pages.selected, tabs.selected);
     pages.selected = tabs.selected;

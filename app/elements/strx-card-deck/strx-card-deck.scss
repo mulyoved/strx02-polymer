@@ -1,0 +1,50 @@
+:host {
+  display: block;
+}
+
+$x-center: 180px;
+$card-width: 230px;
+$card-height: $card-width * 1.618;
+$card-background-scale: 0.8;
+
+strx-card {
+  position: absolute;
+  left: $x-center - $card-width/2;
+  top: 62px;
+}
+
+.top-card {
+  left: $x-center - $card-width/2;
+}
+
+.right-card {
+  left: $x-center;
+  z-index: -1;
+  transform: translate3d(0,0,0) scale($card-background-scale);
+}
+
+.left-card {
+  left: $x-center;
+  z-index: -1;
+  transform: translate3d(-$card-width,0,0) scale($card-background-scale);
+}
+
+.right2-card {
+  left: $x-center;
+  z-index: -2;
+  transform: translate3d(0,0,0) scale($card-background-scale);
+}
+
+.left2-card {
+  left: $x-center;
+  z-index: -2;
+  transform: translate3d(-$card-width,0,0) scale($card-background-scale);
+}
+
+.immidiate-transition {
+  transition: 0;
+}
+
+.move-transition {
+  transition: all 2s ease;
+}

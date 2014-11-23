@@ -1,0 +1,254 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="drag-test" attributes="">
+  <template>
+    <link rel="stylesheet" href="drag-test.css">
+    <h1>Drag Test</h1>
+    <div>
+      <paper-shadow
+        z="1"
+        animated="true"
+        id="card"
+        class="box top-card"
+        touch-action="pan-x"
+        style="background-color: lightblue;"
+        >
+
+        <div>Text</div>
+      </paper-shadow>
+
+      <paper-shadow
+        class="box right-card"
+        z="1"
+        animated="true"
+        id="rightcard"
+        class="box"
+        touch-action="pan-x"
+        style="background-color: red;"
+        >
+
+        <div>Right Card</div>
+      </paper-shadow>
+
+      <paper-shadow
+        class="box left-card"
+        z="1"
+        animated="true"
+        id="leftcard"
+        class="box"
+        touch-action="pan-x"
+        style="background-color: gold;"
+        >
+
+        <div>Left Card</div>
+      </paper-shadow>
+    </div>
+
+  </template>
+  <script>
+    (function () {
+      'use strict';
+
+      var card1;
+      var xPoint = function(x){
+        this.updated = false;
+        this.x = this._prev = this._origin = x;
+        this._timeStamp = (new Date()).getTime();
+      };
+      xPoint.prototype = {
+        TIMER_RESET_THRESHOLD: -5/* px */,
+        VELOCITY_THRESHOLD: -0.2 /* px/ms */,
+        distance: function(){
+          // distance between touch start and current point
+          return this.x - this._origin;
+        },
+        update: function(x){
+          // reset time stamp at move stop
+          if(x - this.x > this.TIMER_RESET_THRESHOLD){
+            this._timeStamp = (new Date()).getTime();
+            this._prev = this.x;
+          }
+          this.x = x;
+          this.updated = true;
+        },
+        isFlick: function(){
+          var dt = (new Date()).getTime() - this._timeStamp;
+          var dx = this.x - this._prev;
+          return (dx / dt) < this.VELOCITY_THRESHOLD;
+        }
+      };
+      /**
+       * Utility
+       */
+      var util = {
+        applyTransform: function(n, move, scale){
+          //var value = "translate3d(" + move + "px, 0, 0)";
+          var value = "translate3d(" + move + "px, 0, 0) scale("+scale+")";
+          //console.log('applyTransform', value);
+          n.style.webkitTransform = value;
+          n.style.MozTransform = value;
+          n.style.msTransform = value;
+          n.style.OTransform = value;
+          n.style.transform = value;
+        },
+
+        cleanTransform: function(n){
+          //var value = "translate3d(" + move + "px, 0, 0)";
+          var value = "";
+          //console.log(value);
+          n.style.webkitTransform = value;
+          n.style.MozTransform = value;
+          n.style.msTransform = value;
+          n.style.OTransform = value;
+          n.style.transform = value;
+        },
+
+        modulate: function(value, rangeA, rangeB, limit) {
+          var fromHigh, fromLow, result, toHigh, toLow;
+          if (limit == null) {
+            limit = false;
+          }
+          fromLow = rangeA[0], fromHigh = rangeA[1];
+          toLow = rangeB[0], toHigh = rangeB[1];
+          result = toLow + (((value - fromLow) / (fromHigh - fromLow)) * (toHigh - toLow));
+          if (limit === true) {
+            if (result < toLow) {
+              return toLow;
+            }
+            if (result > toHigh) {
+              return toHigh;
+            }
+          }
+          return result;
+        }
+      };
+
+
+      Polymer({
+        // define element prototype here
+        //var card = document.getElementById('card');
+        //find('card');
+        startDrag: null,
+        originalPos: null,
+        dragging: false,
+
+        conf: {
+          rightScale: 0.8,
+          rightDistance: 108
+        },
+
+        ready: function() {
+          this.card = this.$.card;
+          this.rightCard = this.$.rightcard;
+          this.leftCard = this.$.leftcard;
+
+          PolymerGestures.addEventListener(this.card, "down", this.onDown.bind(this));
+          PolymerGestures.addEventListener(this.card, "track", this.onMove.bind(this));
+          PolymerGestures.addEventListener(this.card, "up", this.onUp.bind(this));
+          PolymerGestures.addEventListener(this.card, "mouseleave", this.onMouseLeave.bind(this));
+          PolymerGestures.addEventListener(this.card,'tap', this.onTap.bind(this));
+        },
+
+        onDown: function(e) {
+          this.dragging = true;
+          this.card.classList.remove('move-transition');
+          this.startDrag = this.card.getBoundingClientRect();
+          if (!this.originalPos) {
+            this.originalPos = this.startDrag;
+          }
+
+          this.point = new xPoint(e.clientX);
+          this.card.setZ(4);
+
+          this.card.classList.remove('move2');
+          //console.log('onDown');
+          util.applyTransform(this.card, this.point.distance() + this.startDrag.left - this.originalPos.left, 1);
+        },
+
+        onMove: function(e){
+          var p = this.point;
+          if(p && this.dragging){
+            p.update(e.clientX);
+
+            var distance = p.distance() + this.startDrag.left - this.originalPos.left;
+            //console.log('onMove', distance);
+            var scale = util.modulate(Math.abs(distance), [0,this.conf.rightDistance], [1,this.conf.rightScale], false);
+            if (scale<0.8) scale = this.conf.rightScale;
+            if (scale>1) scale = 1;
+
+            //console.log('onMove');
+            util.applyTransform(this.card, p.distance() + this.startDrag.left - this.originalPos.left, scale);
+          }
+        },
+
+        onUp: function(e) {
+          this.dragging = false;
+          var p = this.point;
+          if (p) {
+            p.update(e.clientX);
+            var distance = p.distance();
+            if (Math.abs(distance) > 8) {
+              if (distance > 0) {
+                this.card.classList.add('right-card');
+                this.card.classList.remove('top-card');
+                this.card.classList.add('move-transition');
+
+                this.leftCard.classList.remove('left-card');
+                this.leftCard.classList.add('top-card');
+                this.leftCard.classList.add('move-transition');
+              }
+              else {
+                this.card.classList.add('left-card');
+                this.card.classList.remove('top-card');
+                this.card.classList.add('move-transition');
+
+                this.rightCard.classList.remove('right-card');
+                this.rightCard.classList.add('top-card');
+                this.rightCard.classList.add('move-transition');
+              }
+              //console.log('onUp, cleanTransform', e);
+              util.cleanTransform(this.card);
+            }
+            else {
+              //console.log('onUp, applyTransform', e);
+              util.applyTransform(this.card, 0, 1);
+            }
+          }
+
+
+
+
+          this.card.setZ(1);
+        },
+
+        onMouseLeave: function(e){
+          //console.log('onMouseLeave', e);
+        },
+
+        onTap: function(e){
+          return;
+          console.log('onTap', e);
+
+          //this.card.classList.remove('move2');
+          this.card.classList.add('right-card');
+          util.cleanTransform(this.card);
+
+          /*
+          var animation = new CoreAnimation();
+          animation.duration = 500;
+          animation.keyframes = [
+            {opacity: 1},
+            {opacity: 0}
+          ];
+          animation.target = this.card;
+          animation.play();
+          */
+
+
+        },
+
+      });
+
+    })();
+  </script>
+</polymer-element>

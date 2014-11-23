@@ -1,0 +1,71 @@
+:host {
+  display: block;
+}
+
+$x-center: 300px;
+$card-width: 200px;
+$card-height: 300px;
+$card-background-scale: 0.8;
+
+.box {
+  display: inline-block;
+  position: absolute;
+  left: $x-center - $card-width/2;
+  width: $card-width;
+  height: $card-height;
+}
+
+.immidiate-transition {
+  transition: 0;
+}
+
+.move-transition {
+  transition: all 2s ease;
+}
+
+.top-card {
+  left: $x-center - $card-width/2;
+  transform: scale(1);
+}
+
+
+.right-card {
+  position: absolute;
+  left: $x-center;
+  z-index: -1;
+  transform: translate3d(0,0,0) scale($card-background-scale);
+}
+
+@keyframes to-right-card {
+  to {
+    //left: $x-center;
+    //transform: translate3d(0,0,0) scale($card-background-scale);
+    transform: scale(1.2, 1.2);
+  }
+}
+
+.left-card {
+  position: absolute;
+  left: $x-center;
+  z-index: -1;
+  transform: translate3d(-$card-width,0,0) scale($card-background-scale);
+}
+
+@keyframes animation1 {
+  to {
+    transform: translate3d(400px,0,0) scale(0.8);
+  }
+}
+
+.move2 {
+  animation-name: animation1;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: forwards;
+  //transform: scale(1.2, 1.2);
+}
+
+.move3 {
+  transform: translate3d(200px,0,0) scale(0.8);
+  transition: all 2s ease;
+}
+

@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+
+$x-center: 180px;
+$card-width: 230px;
+$card-height: $card-width * 1.618;
+$card-background-scale: 0.8;
+$border-radius: 8px;
+
+.box {
+  //margin-top: 62px;
+  //left: $x-center - $card-width/2;
+
+  display: inline-block;
+  width: $card-width;
+  height: $card-height;
+  border-radius: $border-radius;
+  background-color: white;
+  border: 1px solid #666;
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+}
+
+.banner {
+  width: 100%;
+  height: $card-width * 175 / 640;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+}
+
+.thumbnails {
+  width: 88px;
+  height: 88px;
+  border: 5px solid white;
+  border-radius: $border-radius;
+}
+
+.title {
+  margin: 8px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  text-overflow:    ellipsis;
+  padding-top: 8px;
+  color: #999;
+}
+
+.values {
+  padding-bottom: 16px;
+  border-top: 1px solid #666;
+}
+
+.text-center {
+  text-align: center;
+  font-size: 22px;
+  color: #999;
+}
+
+.text-label {
+  font-size: 11px;
+  color: #666;
+  font-weight: normal;
+  line-height: 1.7em;
+}
+
+zdiv {
+  border: 1px solid red;
+}
