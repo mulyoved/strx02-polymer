@@ -99,12 +99,12 @@
         conf: {
           rightScale: 0.8,
           rightDistance: 108,
-          shadow: {
-            'top-card': 1,
-            'right-card': 1,
-            'left-card': 1,
-            'right2-card': 1,
-            'left2-card': 1
+          cssProperties: {
+            'top-card': { shadow: 1, zIndex: 100 },
+            'right-card': { shadow: 1, zIndex: 99 },
+            'left-card': { shadow: 1, zIndex: 98 },
+            'right2-card': { shadow: 0, zIndex: 89 },
+            'left2-card': { shadow: 0, zIndex: 88 },
           }
         },
 
@@ -143,24 +143,29 @@
           console.log('setCardContent');
           if (this.cards) {
             this.topCard.cardinfo = this.cards[this.topCardIndex];
-            this.topCard.z = 1;
-            if (this.topCardIndex -1 >= 0) {
-              this.leftCard.cardinfo = this.cards[this.topCardIndex-1];
-              this.leftCard.z = 1;
+            if (this.topCardIndex + 1 >= 0) {
+              this.leftCard.cardinfo = this.cards[this.topCardIndex+1];
             }
-            if (this.topCardIndex - 2 >= 0) {
-              this.left2Card.cardinfo = this.cards[this.topCardIndex-2];
-              this.left2Card.z = 0;
+            if (this.topCardIndex + 2 >= 0) {
+              this.left2Card.cardinfo = this.cards[this.topCardIndex+2];
             }
-            if (this.topCardIndex + 1 < this.cards.length) {
-              this.rightCard.cardinfo = this.cards[this.topCardIndex+1];
-              this.rightCard.z = 1;
+            if (this.topCardIndex - 1 < this.cards.length) {
+              this.rightCard.cardinfo = this.cards[this.topCardIndex-1];
             }
-            if (this.topCardIndex + 2 < this.cards.length) {
-              this.right2Card.cardinfo = this.cards[this.topCardIndex+2];
-              this.right2Card.z = 0;
+            if (this.topCardIndex - 2 < this.cards.length) {
+              this.right2Card.cardinfo = this.cards[this.topCardIndex-2];
             }
           }
+
+          this.resetClass();
+        },
+
+        resetClass: function() {
+          this.newClass(this.topCard,'top-card');
+          this.newClass(this.leftCard,'left-card');
+          this.newClass(this.rightCard,'right-card');
+          this.newClass(this.left2Card,'left2-card');
+          this.newClass(this.right2Card,'right2-card');
         },
 
         newClass: function(card, className, immediate) {
@@ -172,6 +177,13 @@
           card.classList.remove('immidiate-transition');
           card.classList.remove('move-transition');
 
+          if (card.cardinfo) {
+            card.classList.remove('hidden');
+          }
+          else {
+            card.classList.add('hidden');
+          }
+
           if (immediate) {
             card.classList.add('immidiate-transition');
           }
@@ -179,10 +191,11 @@
             card.classList.add('move-transition');
           }
 
+          //card.style.zIndex = this.conf.cssProperties[className].zIndex;
           card.classList.add(className);
           util.cleanTransform(card);
-          card.z = this.conf.shadow[className];
-          console.log('Set class', className, this.conf.shadow[className]);
+          card.z = this.conf.cssProperties[className].shadow;
+          console.log('Set class', className, this.conf.cssProperties[className].shadow);
 
           return card;
         },
@@ -233,6 +246,7 @@
               if (Math.abs(distance) > 8) {
                 //this.removeEventListner(this.topCard);
 
+
                 var _topCard = this.topCard;
                 var _leftCard = this.leftCard;
                 var _rightCard = this.rightCard;
@@ -240,18 +254,46 @@
                 var _right2Card = this.right2Card;
 
                 if (distance > 0) {
-                  this.rightCard = this.newClass(_topCard, 'right-card');
-                  this.topCard = this.newClass(_leftCard, 'top-card');
-                  this.right2Card = this.newClass(_rightCard, 'right2-card');
-                  this.leftCard = this.newClass(_left2Card, 'left-card');
-                  this.left2Card = this.newClass(_right2Card, 'left2-card', true);
+                  if (this.topCardIndex < this.cards.length - 1) {
+                    this.rightCard = this.newClass(_topCard, 'right-card');
+                    this.topCard = this.newClass(_leftCard, 'top-card');
+                    this.right2Card = this.newClass(_rightCard, 'right2-card');
+                    this.leftCard = this.newClass(_left2Card, 'left-card');
+                    this.left2Card = this.newClass(_right2Card, 'left2-card', true);
+                    this.topCardIndex += 1;
+
+                    if (this.topCardIndex + 2 < this.cards.length) {
+                      this.left2Card.cardinfo = this.cards[this.topCardIndex + 2];
+                    }
+                    else {
+                      this.left2Card.cardinfo = null;
+                      this.left2Card.classList.add('hidden');
+                    }
+                  }
+                  else {
+                    this.resetClass();
+                  }
                 }
                 else {
-                  this.leftCard = this.newClass(_topCard, 'left-card');
-                  this.topCard = this.newClass(_rightCard, 'top-card');
-                  this.left2Card = this.newClass(_leftCard, 'left2-card');
-                  this.rightCard = this.newClass(_right2Card, 'right-card');
-                  this.right2Card = this.newClass(_left2Card, 'right2-card', true);
+                  if (this.topCardIndex > 0) {
+                    this.leftCard = this.newClass(_topCard, 'left-card');
+                    this.topCard = this.newClass(_rightCard, 'top-card');
+                    this.left2Card = this.newClass(_leftCard, 'left2-card');
+                    this.rightCard = this.newClass(_right2Card, 'right-card');
+                    this.right2Card = this.newClass(_left2Card, 'right2-card', true);
+                    this.topCardIndex -= 1;
+
+                    if (this.topCardIndex - 2 >= 0) {
+                      this.right2Card.cardinfo = this.cards[this.topCardIndex - 2];
+                    }
+                    else {
+                      this.right2Card.cardinfo = null;
+                      this.right2Card.classList.add('hidden');
+                    }
+                  }
+                  else {
+                    this.resetClass();
+                  }
                 }
 
                 //this.setEventListners(this.topCard);
@@ -268,18 +310,26 @@
           }
         },
 
+        dumpCard: function(name, card) {
+          //card.classList,
+          if (card.cardinfo) {
+            console.log(name, card.id, card.cardinfo.title, card.cardinfo.value);
+          }
+          else {
+            console.log(name, card.id, 'EMPTY');
+          }
+
+        },
+
+
         onMouseLeave: function(e){
           if (e.srcElement == this.topCard) {
             //console.log('onMouseLeave', e);
           }
         },
 
-
-        dumpCard: function(name, card) {
-          console.log(name, card.id, card.classList);
-        },
-
-        dump: function() {
+        dump: function(name) {
+          console.log('*** Dump', name, this.topCardIndex, this.cards.length);
           this.dumpCard('left2Card', this.left2Card);
           this.dumpCard('leftCard', this.leftCard);
           this.dumpCard('topCard', this.topCard);
@@ -289,7 +339,7 @@
 
         onTap: function(e){
           //console.log('onTap', e);
-          //this.dump();
+          this.dump('tap');
           return;
 
           //this.card.classList.remove('move2');

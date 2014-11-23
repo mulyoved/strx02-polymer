@@ -50,7 +50,12 @@
 
   <core-animated-pages transitions="hero-transition cross-fade">
     <!-- <section><yo-list cross-fade id="0"></yo-list></section> -->
-    <section><div cross-fade id="1"><strx-card-deck id="deck"></strx-card-deck></div></section>
+    <section>
+      <div cross-fade id="1">
+        <strx-card-deck id="deck"></strx-card-deck>
+        <paper-button class="buy-button" raised>BUY</paper-button>
+      </div>
+    </section>
     <section><div cross-fade id="2">
       <left-swipe-action>
         <div style="height: 120px;">
@@ -76,7 +81,7 @@
   var len = channelData.length;
   for (var i=0; i<len; i++) {
     var channel = channelData[i];
-    channel.value = Math.round(Math.random() * 10000) + 50;
+    channel.value = i; // Math.round(Math.random() * 10000) + 50;
     channel.price = Math.round(channel.value / (Math.random() * 1000) + 1);
     //console.log(channel.value, channel.price);
   }
@@ -89,7 +94,7 @@
   card1.cardinfo = channelData[0];
 
   deck.cards = channelData;
-  deck.topCardIndex = 7;
+  deck.topCardIndex = 18;
 
   tabs.addEventListener('core-select', function() {
     console.log(pages.selected, tabs.selected);
