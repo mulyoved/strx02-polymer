@@ -3,18 +3,17 @@
 }
 
 $x-center: 180px;
-$card-width: 230px;
+$card-width: 240px;
 $card-height: $card-width * 1.618;
 $card-background-scale: 0.8;
 $animation-time: 600ms;
 
-strx-card {
-  position: absolute;
-  left: $x-center - $card-width/2;
-  top: 48px;
+:host {
+  height: $card-height;
 }
 
-.top-card {
+strx-card {
+  position: absolute;
   left: $x-center - $card-width/2;
   z-index: 0;
 }

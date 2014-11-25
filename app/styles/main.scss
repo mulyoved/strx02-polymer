@@ -49,3 +49,30 @@ core-toolbar paper-tabs {
   fill: #f1f1f1;
 }
 
+paper-tabs.transparent {
+  background-color: transparent;
+  color: #4285f4;
+  box-shadow: none;
+  height: 36px;
+}
+
+
+paper-tabs.transparent::shadow #selectionBar {
+  background-color: #4285f4;
+}
+
+paper-tabs.transparent paper-tab::shadow #ink {
+  color: #4285f4;
+}
+
+
+h3 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.header-user-thumbnails {
+  //width: 44px;
+  //height: 44px;
+  //border: 1px solid rgba(61, 61, 61, 0.86);
+}

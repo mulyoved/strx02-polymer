@@ -29,52 +29,64 @@
 
 <body unresolved fullbleed layout vertical>
 <core-scroll-header-panel flex fixed>
-<core-toolbar class="medium-tall">
+<core-toolbar>
   <paper-icon-button icon="menu"></paper-icon-button>
   <div flex>Styrax</div>
-  <core-icon icon="info"></core-icon>
+
+  <paper-icon-button id="user-thumbnails" class="header-user-thumbnails"
+                     src="https://yt3.ggpht.com/-5JMjG8tTD-g/AAAAAAAAAAI/AAAAAAAAAAA/0AN4WoC-xR8/s88-c-k-no/photo.jpg">
+  </paper-icon-button>
+
   <!--
   <paper-icon-button icon="refresh"></paper-icon-button>
   <paper-icon-button icon="more-vert"></paper-icon-button>
   -->
-  <div class="bottom fit" horizontal layout>
-    <paper-tabs selected="0">
+
+
+</core-toolbar>
+
+<core-animated-pages id="app" transitions="hero-transition cross-fade">
+  <section>
+    <paper-tabs class="transparent" role="tablist" selected="0" horizontal center layout>
       <!-- <paper-tab>LEAD</paper-tab> -->
       <paper-tab>TOP</paper-tab>
       <paper-tab>TREND</paper-tab>
       <paper-tab>DECK</paper-tab>
       <paper-tab>SEARCH</paper-tab>
     </paper-tabs>
-  </div>
-</core-toolbar>
 
-  <core-animated-pages transitions="hero-transition cross-fade">
-    <!-- <section><yo-list cross-fade id="0"></yo-list></section> -->
-    <section>
-        <div cross-fade id="1">
-          <strx-deck-buy id="topDeck"></strx-deck-buy>
-        </div>
-    </section>
-    <section>
-      <div cross-fade id="2">
-        <strx-deck-buy id="trendDeck"></strx-deck-buy>
-      </div>
-    </section>
-    <section>
-      <div cross-fade id="3">
-        <strx-deck-buy id="myDeck"></strx-deck-buy>
-      </div>
-    </section>
-    <section><div cross-fadeid="4">
-      <div style="height:100%" horizontal layout>
-        <h1 flex self-end style="text-align: center">TBD</h1>
-      </div>
-      <!--
-      <strx-card id="card1" z="3" class="card" count="{{channelData.length}}">
-      </strx-card>
-      -->
+    <core-animated-pages id="tabs" transitions="hero-transition cross-fade">
+      <!-- <section><yo-list cross-fade id="0"></yo-list></section> -->
+      <section>
+          <div cross-fade id="1">
+            <strx-deck-buy id="topDeck"></strx-deck-buy>
+          </div>
       </section>
-  </core-animated-pages>
+      <section>
+        <div cross-fade id="2">
+          <strx-deck-buy id="trendDeck"></strx-deck-buy>
+        </div>
+      </section>
+      <section>
+        <div cross-fade id="3">
+          <strx-deck-buy id="myDeck"></strx-deck-buy>
+        </div>
+      </section>
+      <section><div cross-fadeid="4">
+        <div style="height:100%" horizontal layout>
+          <h1 flex self-end style="text-align: center">TBD</h1>
+        </div>
+        <!--
+        <strx-card id="card1" z="3" class="card" count="{{channelData.length}}">
+        </strx-card>
+        -->
+        </section>
+    </core-animated-pages>
+  </section>
+  <section>
+    <h1>User profile</h1>
+  </section>
+</core-animated-pages>
 
 
 </core-scroll-header-panel>
@@ -82,24 +94,28 @@
 <script src="data/channels.js"></script>
 <script>
 
+  var myChannel = 16;
   var len = channelData.length;
   for (var i=0; i<len; i++) {
     var channel = channelData[i];
     //channel.value = i; // Math.round(Math.random() * 10000) + 50;
     //channel.price = Math.round(channel.value / (Math.random() * 1000) + 1);
     //console.log(channel.value, channel.price);
-    channel.price = Math.round(channel.price * Math.random() * 16.252);
+    //channel.price = Math.round(channel.price * Math.random() * 16.252);
+    channel.price = i;
     channel.trend = Math.random();
 
   }
 
-  var pages = document.querySelector('core-animated-pages');
+  var pages = document.querySelector('#tabs');
+  var appRouter = document.querySelector('#app');
   var tabs = document.querySelector('paper-tabs');
   //var card1 = document.querySelector('#card1');
   var topDeck = document.querySelector('#topDeck');
   var trendDeck = document.querySelector('#trendDeck');
   var myDeck = document.querySelector('#myDeck');
   var test = document.querySelector('#test');
+  var userThumbnails = document.querySelector('#user-thumbnails');
 
   //card1.count = 7;
   //card1.cardinfo = channelData[0];
@@ -135,6 +151,11 @@
   tabs.addEventListener('core-select', function() {
     //console.log(pages.selected, tabs.selected);
     pages.selected = tabs.selected;
+  });
+
+  userThumbnails.addEventListener('click', function() {
+    console.log('userThumbnails click');
+    appRouter.selected = 1;
   });
 
 </script>

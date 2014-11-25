@@ -251,6 +251,15 @@ module.exports = function (grunt) {
           dest: '.tmp',
           src: ['{styles,elements}/{,*/}*.css']
         }]
+      },
+      cordova: {
+        expand: true,
+        dot: true,
+        cwd: '<%= yeoman.dist %>',
+        dest: 'D:/js/strx/strx02/www',
+        src: [
+          '**'
+        ]
       }
     },
     // See this tutorial if you'd like to run PageSpeed
@@ -313,6 +322,7 @@ module.exports = function (grunt) {
     'vulcanize',
     //'usemin',
     //'minifyHtml'
+    'copy:cordova'
   ]);
 
   grunt.registerTask('default', [
