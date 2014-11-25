@@ -91,6 +91,9 @@
         // define element prototype here
         cards: null,
         topCardIndex: 0,
+        currentCard: function() {
+          return this.topCard.cardinfo;
+        },
 
         startDrag: null,
         originalPos: null,
@@ -140,7 +143,7 @@
         },
 
         setCardContent: function() {
-          console.log('setCardContent');
+          //console.log('setCardContent');
           if (this.cards) {
             this.topCard.cardinfo = this.cards[this.topCardIndex];
             if (this.topCardIndex + 1 >= 0) {
@@ -160,6 +163,21 @@
           this.resetClass();
         },
 
+        isTopCard: function(e) {
+          var id = this.topCard.id;
+          var el = e.srcElement;
+
+          while (el && el.id !== 'deck') {
+            if (el.id === id) {
+              return true;
+            }
+
+            el = el.parentElement;
+          }
+
+          return false;
+        },
+
         resetClass: function() {
           this.newClass(this.topCard,'top-card');
           this.newClass(this.leftCard,'left-card');
@@ -175,6 +193,7 @@
           card.classList.remove('left2-card');
           card.classList.remove('right2-card');
           card.classList.remove('immidiate-transition');
+          card.classList.remove('drag-transition');
           card.classList.remove('move-transition');
 
           if (card.cardinfo) {
@@ -195,15 +214,17 @@
           card.classList.add(className);
           util.cleanTransform(card);
           card.z = this.conf.cssProperties[className].shadow;
-          console.log('Set class', className, this.conf.cssProperties[className].shadow);
+          //console.log('Set class', className, this.conf.cssProperties[className].shadow);
 
           return card;
         },
 
         onDown: function(e) {
-          if (e.srcElement == this.topCard) {
+          if (this.isTopCard(e)) {
             this.dragging = true;
             this.topCard.classList.remove('move-transition');
+            this.topCard.classList.add('drag-transition');
+
             this.startDrag = this.topCard.getBoundingClientRect();
             if (!this.originalPos) {
               this.originalPos = this.startDrag;
@@ -212,14 +233,13 @@
             this.point = new xPoint(e.clientX);
             this.topCard.z = 4;
 
-            this.topCard.classList.remove('move2');
             //console.log('onDown');
             util.applyTransform(this.topCard, this.point.distance() + this.startDrag.left - this.originalPos.left, 1);
           }
         },
 
         onMove: function(e){
-          if (e.srcElement == this.topCard) {
+          if (this.dragging) {
             var p = this.point;
             if (p && this.dragging) {
               p.update(e.clientX);
@@ -237,7 +257,7 @@
         },
 
         onUp: function(e) {
-          if (e.srcElement == this.topCard) {
+          if (this.dragging) {
             this.dragging = false;
             var p = this.point;
             if (p) {
@@ -313,7 +333,7 @@
         dumpCard: function(name, card) {
           //card.classList,
           if (card.cardinfo) {
-            console.log(name, card.id, card.cardinfo.title, card.cardinfo.value);
+            console.log(name, card.id, card.cardinfo.title, card.cardinfo.value, card.cardinfo.hold);
           }
           else {
             console.log(name, card.id, 'EMPTY');
@@ -323,7 +343,7 @@
 
 
         onMouseLeave: function(e){
-          if (e.srcElement == this.topCard) {
+          if (this.isTopCard(e)) {
             //console.log('onMouseLeave', e);
           }
         },
@@ -339,7 +359,7 @@
 
         onTap: function(e){
           //console.log('onTap', e);
-          this.dump('tap');
+          //this.dump('tap');
           return;
 
           //this.card.classList.remove('move2');

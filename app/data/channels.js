@@ -1,4 +1,4 @@
-var channelData = 
+var channelData =
 [
   {
     "_id": "5460d95be03069742ee64f98",
@@ -46,7 +46,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 93473,
+    price: 23,
+    hold: 1
   },
   {
     "_id": "5460d960e03069742ee64fba",
@@ -81,7 +84,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 8328,
+    price: 5,
+    hold: 2
   },
   {
     "_id": "5464a68c875083102d26384e",
@@ -135,7 +141,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 14536,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95be03069742ee64f9e",
@@ -183,7 +192,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 5673,
+    price: 3,
+    hold: 1
   },
   {
     "_id": "5460d95be03069742ee64fa1",
@@ -242,8 +254,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
-  },
+    "restangularCollection": false,
+    value: 12023,
+    price: 1,
+    hold: 1  },
   {
     "_id": "5460d95be03069742ee64fa9",
     "channelId": "UCa6Hg8HmooiDNaCT0_1NbQQ",
@@ -290,7 +304,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 3455,
+    price: 3,
+    hold: 0
   },
   {
     "_id": "5460d95de03069742ee64fb1",
@@ -327,7 +344,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 67383,
+    price: 44,
+    hold: 1
   },
   {
     "_id": "5460d95dcadb6268308af392",
@@ -364,7 +384,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 9390,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95dcadb6268308af394",
@@ -402,7 +425,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 78390,
+    price: 12,
+    hold: 0
   },
   {
     "_id": "5460d95ecadb6268308af399",
@@ -449,7 +475,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 7832,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95ecadb6268308af3a0",
@@ -489,7 +518,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 22822,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95fcadb6268308af3a4",
@@ -532,7 +564,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 8393,
+    price: 3,
+    hold: 1
   },
   {
     "_id": "5460d95fcadb6268308af3ab",
@@ -568,7 +603,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 10383,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5464a668875083102d263823",
@@ -606,7 +644,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 16292,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5464a669875083102d263825",
@@ -663,7 +704,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 18729,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5464a669875083102d26382c",
@@ -708,7 +752,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 23983,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5464a66e875083102d26382f",
@@ -753,7 +800,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 26373,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95ecadb6268308af3a2",
@@ -801,7 +851,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 12939,
+    price: 2,
+    hold: 0
   },
   {
     "_id": "5460d95fcadb6268308af3a7",
@@ -848,7 +901,10 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 33932,
+    price: 3,
+    hold: 0
   },
   {
     "_id": "5460d95fcadb6268308af3b5",
@@ -901,6 +957,9 @@ var channelData =
     "reqParams": null,
     "fromServer": true,
     "parentResource": null,
-    "restangularCollection": false
+    "restangularCollection": false,
+    value: 25373,
+    price: 3,
+    hold: 0
   }
 ]

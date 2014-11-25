@@ -6,7 +6,7 @@ $x-center: 180px;
 $card-width: 230px;
 $card-height: $card-width * 1.618;
 $card-background-scale: 0.8;
-$animation-time: 250ms;
+$animation-time: 600ms;
 
 strx-card {
   position: absolute;
@@ -47,9 +47,14 @@ strx-card {
   transition: all 0s;
 }
 
+.drag-transition {
+  transition: all 0ms;
+}
+
 .move-transition {
   //transition: all 2s ease;
   transition: scale $animation-time, transform $animation-time, left $animation-time;
+  transition-timing-function: ease;
 }
 
 .hidden {

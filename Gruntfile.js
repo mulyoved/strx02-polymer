@@ -92,7 +92,7 @@ module.exports = function (grunt) {
     },
     autoprefixer: {
       options: {
-        browsers: ['last 2 versions']
+        browsers: ['Chrome 30']
       },
       server: {
         files: [{
@@ -239,6 +239,7 @@ module.exports = function (grunt) {
             'elements/**',
             '!elements/**/*.scss',
             'images/{,*/}*.{webp,gif}',
+            'data/**',
             'bower_components/**'
           ]
         }]
@@ -308,10 +309,10 @@ module.exports = function (grunt) {
     'imagemin',
     'concat',
     'autoprefixer',
-    'uglify',
+    //'uglify',
     'vulcanize',
-    'usemin',
-    'minifyHtml'
+    //'usemin',
+    //'minifyHtml'
   ]);
 
   grunt.registerTask('default', [
